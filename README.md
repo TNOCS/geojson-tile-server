@@ -2,9 +2,11 @@
 
 A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.
 
-For example, if you have a local `data` folder containing two GeoJSON files (`layer1.geojson` and `layer2.geojson`), you can access the tiles at [http://localhost:8123/layer1/z/x/y.geojson](http://localhost:8123/layer1/z/x/y.geojson) and [http://localhost:8123/layer2/z/x/y.geojson](http://localhost:8123/layer2/z/x/y.geojson), where `z = zoom`, `x` and `y` need to be replaced by some sensible value based on the bounding box of your dataset. If you are not sure what appropriate values are, have a look [here](http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection).
+For example, if you have a local `data` folder containing two GeoJSON files (`layer1.geojson` and `layer2.geojson`), you can access the tiles at [http://localhost:8123/layer1/z/x/y.geojson](http://localhost:8123/layer1/z/x/y.geojson) and [http://localhost:8123/layer2/z/x/y.geojson](http://localhost:8123/layer2/z/x/y.geojson), where `z = zoom`, `x` and `y` need to be replaced by some sensible value based on the bounding box of your dataset.
 
+If you are not sure what appropriate values are, have a look [here](http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection).
 
+Besides publishing the geojson tiles, you can also retreive the protobuf encoded vector tiles by replacing the `geojson` extension with `mvt`, e.g. [http://localhost:8123/layer1/z/x/y.mvt](http://localhost:8123/layer1/z/x/y.mvt).
 
 ## Installation
 
