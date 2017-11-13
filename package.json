@@ -1,8 +1,8 @@
 {
   "name": "geojson-tile-server",
   "version": "1.0.5",
-  "main": "dist/server.js",
-  "typings": "dist/server.d.ts",
+  "main": "dist/cli.js",
+  "typings": "dist/cli.d.ts",
   "keywords": [
     "GeoJSON",
     "slippy map",
@@ -23,12 +23,15 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "command-line-args": "^4.0.7",
+    "command-line-usage": "^4.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "geojson-vt": "^2.4.0",
     "vt-pbf": "^3.1.0"
   },
   "devDependencies": {
+    "@types/command-line-args": "^4.0.1",
     "@types/cors": "^2.8.2",
     "@types/express": "^4.0.39",
     "@types/node": "^8.0.50",

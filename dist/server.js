@@ -41,7 +41,7 @@ var express = require("express");
 var cors = require("cors");
 var vtpbf = require("vt-pbf");
 var utils_1 = require("./utils");
-var startService = function (filenames) { return __awaiter(_this, void 0, void 0, function () {
+var startService = function (filenames, options) { return __awaiter(_this, void 0, void 0, function () {
     var _this = this;
     var tileIndexes, countFiles, httpPort, app;
     return __generator(this, function (_a) {
@@ -69,7 +69,7 @@ var startService = function (filenames) { return __awaiter(_this, void 0, void 0
                 }
             });
         }); });
-        httpPort = process.env.PORT || 8123;
+        httpPort = options.port || process.env.PORT || 8123;
         app = express();
         app.use(cors());
         app.use(express.static(process.env.PUBLIC_FOLDER || './public'));
@@ -104,7 +104,9 @@ var startService = function (filenames) { return __awaiter(_this, void 0, void 0
         return [2 /*return*/];
     });
 }); };
-var dataFolder = path.resolve(process.env.DATAFOLDER || './data');
-console.log("Reading GeoJSON files from " + dataFolder);
-startService(utils_1.findGeojsonFilesInFolder(dataFolder));
+exports.createService = function (options) {
+    var dataFolder = path.resolve(options.data || process.env.DATAFOLDER || './data');
+    console.log("Reading GeoJSON files from " + dataFolder);
+    startService(utils_1.findGeojsonFilesInFolder(dataFolder), options);
+};
 //# sourceMappingURL=server.js.map

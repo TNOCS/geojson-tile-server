@@ -5,8 +5,9 @@ import * as geojsonvt from 'geojson-vt';
 import * as vtpbf from 'vt-pbf';
 
 import { createTileIndex, findGeojsonFilesInFolder } from './utils';
+import { ICommandOptions } from './cli';
 
-const startService = async (filenames: string | string[]) => {
+const startService = async (filenames: string | string[], options: ICommandOptions) => {
   if (typeof filenames === 'string') { filenames = [filenames]; }
 
   const tileIndexes: { [key: string]: any } = {};
@@ -20,7 +21,7 @@ const startService = async (filenames: string | string[]) => {
     if (countFiles <= 0) { console.log('Finished loading the layers.'); }
   });
 
-  const httpPort = process.env.PORT || 8123;
+  const httpPort = options.port || process.env.PORT || 8123;
   const app = express();
   app.use(cors());
   app.use(express.static(process.env.PUBLIC_FOLDER || './public'));
@@ -55,6 +56,8 @@ const startService = async (filenames: string | string[]) => {
   app.listen(httpPort, () => console.info(`Tile service is listening on port ${httpPort}`));
 };
 
-const dataFolder = path.resolve(process.env.DATAFOLDER || './data');
-console.log(`Reading GeoJSON files from ${dataFolder}`);
-startService(findGeojsonFilesInFolder(dataFolder));
+export const createService = (options: ICommandOptions) => {
+  const dataFolder = path.resolve(options.data || process.env.DATAFOLDER || './data');
+  console.log(`Reading GeoJSON files from ${dataFolder}`);
+  startService(findGeojsonFilesInFolder(dataFolder), options);
+};

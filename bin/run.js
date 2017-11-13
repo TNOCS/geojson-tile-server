@@ -1,4 +1,4 @@
 #! /usr/bin/env node
 
-var geojsonTileServer = require('../dist/server');
+var geojsonTileServer = require('../dist/cli');
 geojsonTileServer
