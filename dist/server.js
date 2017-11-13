@@ -97,7 +97,7 @@ var startService = function (filenames) { return __awaiter(_this, void 0, void 0
                 var x = +req.params['x'];
                 var y = +req.params['y'];
                 var buff = vtpbf.fromGeojsonVt({ 'geojsonLayer': tileIndexes[layer].getTile(z, x, y) });
-                res.json(buff);
+                res.send(buff);
             }
         });
         app.listen(httpPort, function () { return console.info("Tile service is listening on port " + httpPort); });

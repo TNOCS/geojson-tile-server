@@ -48,7 +48,7 @@ const startService = async (filenames: string | string[]) => {
       const x = +req.params['x'];
       const y = +req.params['y'];
       const buff = vtpbf.fromGeojsonVt({ 'geojsonLayer': tileIndexes[layer].getTile(z, x, y) });
-      res.json(buff);
+      res.send(buff);
     }
   });
 
