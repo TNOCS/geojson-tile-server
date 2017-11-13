@@ -9,6 +9,9 @@
     "tile server",
     "geojson-vt"
   ],
+  "bin": {
+    "geojson-tile-server": "./bin/run.js"
+  },
   "scripts": {
     "build": "tsc -w",
     "start": "node dist/server.js",
