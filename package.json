@@ -34,7 +34,8 @@
     "@types/command-line-args": "^4.0.1",
     "@types/cors": "^2.8.2",
     "@types/express": "^4.0.39",
-    "@types/node": "^8.0.50",
+    "@types/geojson": "^7946.0.0",
+    "@types/node": "^8.0.53",
     "typescript": "^2.6.1"
   }
 }
