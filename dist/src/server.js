@@ -87,11 +87,7 @@ var startService = function (filenames, options) { return __awaiter(_this, void 
             var z = +req.params['z'];
             var x = +req.params['x'];
             var y = +req.params['y'];
-            var tile = tileIndexes[layer].getTile(z, x, y);
-            if (!tile || !tile.features) {
-                return res.json({});
-            }
-            var vectorTiles = tile.features;
+            var vectorTiles = tileIndexes[layer].getTile(z, x, y).features;
             res.json(vt2geojson_1.toFeatureCollection(vectorTiles, x, y, z));
         });
         app.get('/:layer/:z/:x/:y.vt', function (req, res) {
@@ -102,12 +98,7 @@ var startService = function (filenames, options) { return __awaiter(_this, void 
             var z = +req.params['z'];
             var x = +req.params['x'];
             var y = +req.params['y'];
-            var tile = tileIndexes[layer].getTile(z, x, y);
-            if (!tile || !tile.features) {
-                return res.json({});
-            }
-            var vectorTiles = tile.features;
-            res.json(vectorTiles);
+            res.json(tileIndexes[layer].getTile(z, x, y).features);
         });
         app.get('/:layer/:z/:x/:y.mvt', function (req, res) {
             var layer = req.params['layer'];
@@ -117,11 +108,7 @@ var startService = function (filenames, options) { return __awaiter(_this, void 
             var z = +req.params['z'];
             var x = +req.params['x'];
             var y = +req.params['y'];
-            var tile = tileIndexes[layer].getTile(z, x, y);
-            if (!tile || !tile.features) {
-                return res.json({});
-            }
-            var buff = vtpbf.fromGeojsonVt({ 'geojsonLayer': tile });
+            var buff = vtpbf.fromGeojsonVt({ 'geojsonLayer': tileIndexes[layer].getTile(z, x, y) });
             res.send(buff);
         });
         app.listen(httpPort, function () { return console.info("Tile service is listening on port " + httpPort); });
