@@ -28,8 +28,8 @@ export class CommandLineInterface {
   ];
 
   static sections = [{
-    header: `${npmPackage.name}, version ${npmPackage.version}`,
-    content: `Created by ${npmPackage.author}, under the ${npmPackage.license} license.
+    header: `${npmPackage.name}, v${npmPackage.version}`,
+    content: `${npmPackage.license} license.
 
     ${npmPackage.description}
 
