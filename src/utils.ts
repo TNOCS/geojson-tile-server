@@ -41,5 +41,22 @@ export const findGeojsonFilesInFolder = (folder: string) => {
  */
 export const createTileIndex = async (filename: string) => {
   const geoJSON = await loadGeoJSON(filename);
-  return geojsonvt(geoJSON);
+  return geojsonvt(geoJSON, {
+    /** max zoom to preserve detail on; can't be higher than 24 */
+    maxZoom: 19,
+    /** simplification tolerance (higher means simpler) */
+    tolerance: 3,
+    /** tile extent (both width and height) */
+    extent: 4096,
+    /** tile buffer on each side */
+    buffer: 64,
+    /** logging level (0 to disable, 1 or 2) */
+    debug: 0,
+    /** max zoom in the initial tile index */
+    indexMaxZoom: 4,
+    /** max number of points per tile in the index */
+    indexMaxPoints: 100000,
+    /** whether to include solid tile children in the index */
+    solidChildren: false
+  });
 };

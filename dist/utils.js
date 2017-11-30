@@ -82,7 +82,24 @@ exports.createTileIndex = function (filename) { return __awaiter(_this, void 0, 
             case 0: return [4 /*yield*/, exports.loadGeoJSON(filename)];
             case 1:
                 geoJSON = _a.sent();
-                return [2 /*return*/, geojsonvt(geoJSON)];
+                return [2 /*return*/, geojsonvt(geoJSON, {
+                        /** max zoom to preserve detail on; can't be higher than 24 */
+                        maxZoom: 19,
+                        /** simplification tolerance (higher means simpler) */
+                        tolerance: 3,
+                        /** tile extent (both width and height) */
+                        extent: 4096,
+                        /** tile buffer on each side */
+                        buffer: 64,
+                        /** logging level (0 to disable, 1 or 2) */
+                        debug: 0,
+                        /** max zoom in the initial tile index */
+                        indexMaxZoom: 4,
+                        /** max number of points per tile in the index */
+                        indexMaxPoints: 100000,
+                        /** whether to include solid tile children in the index */
+                        solidChildren: false
+                    })];
         }
     });
 }); };

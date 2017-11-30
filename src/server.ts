@@ -1,13 +1,12 @@
-import { IVectorTile, toFeatureCollection } from './vt2geojson';
 import * as path from 'path';
 import * as express from 'express';
-import { Request, Response } from 'express';
 import * as cors from 'cors';
-import * as geojsonvt from 'geojson-vt';
 import * as vtpbf from 'vt-pbf';
+import { Request, Response } from 'express';
+import { GeometryObject } from 'geojson';
 import { createTileIndex, findGeojsonFilesInFolder } from './utils';
 import { ICommandOptions } from './cli';
-import { GeometryObject } from 'geojson';
+import { IVectorTile, toFeatureCollection } from './vt2geojson';
 
 const startService = async (filenames: string | string[], options: ICommandOptions) => {
   if (typeof filenames === 'string') { filenames = [filenames]; }

@@ -36,12 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var vt2geojson_1 = require("./vt2geojson");
 var path = require("path");
 var express = require("express");
 var cors = require("cors");
 var vtpbf = require("vt-pbf");
 var utils_1 = require("./utils");
+var vt2geojson_1 = require("./vt2geojson");
 var startService = function (filenames, options) { return __awaiter(_this, void 0, void 0, function () {
     var _this = this;
     var tileIndexes, countFiles, httpPort, app, send404;
