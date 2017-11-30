@@ -21,7 +21,7 @@
   },
   "author": "Erik Vullings <erik.vullings@gmail.com> (http://www.tno.nl)",
   "license": "MIT",
-  "description": "",
+  "description": "A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.",
   "dependencies": {
     "command-line-args": "^4.0.7",
     "command-line-usage": "^4.0.1",
