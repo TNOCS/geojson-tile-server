@@ -75,31 +75,31 @@ exports.findGeojsonFilesInFolder = function (folder) {
  * @param {string} filename
  * @returns
  */
-exports.createTileIndex = function (filename) { return __awaiter(_this, void 0, void 0, function () {
+exports.createTileIndex = function (filename, options) { return __awaiter(_this, void 0, void 0, function () {
     var geoJSON;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, exports.loadGeoJSON(filename)];
             case 1:
                 geoJSON = _a.sent();
-                return [2 /*return*/, geojsonvt(geoJSON, {
+                return [2 /*return*/, geojsonvt(geoJSON, Object.assign({
                         /** max zoom to preserve detail on; can't be higher than 24 */
-                        maxZoom: 19,
+                        maxZoom: 20,
                         /** simplification tolerance (higher means simpler) */
                         tolerance: 3,
-                        /** tile extent (both width and height) */
+                        /** tile extent (both width and height) - this needs to match the value that is used in vt2geojson.ts */
                         extent: 4096,
                         /** tile buffer on each side */
                         buffer: 64,
                         /** logging level (0 to disable, 1 or 2) */
                         debug: 0,
-                        /** max zoom in the initial tile index */
+                        /** max zoom in the initial tile index: if indexMaxZoom === maxZoom, and indexMaxPoints === 0, pre-generate all tiles */
                         indexMaxZoom: 4,
                         /** max number of points per tile in the index */
                         indexMaxPoints: 100000,
                         /** whether to include solid tile children in the index */
                         solidChildren: false
-                    })];
+                    }, options))];
         }
     });
 }); };
