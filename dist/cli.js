@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var commandLineArgs = require("command-line-args");
 var server_1 = require("./server");
+var npmPackage = require("../package.json");
 var CommandLineInterface = /** @class */ (function () {
     function CommandLineInterface() {
     }
@@ -12,8 +13,8 @@ var CommandLineInterface = /** @class */ (function () {
         { name: 'static', alias: 's', type: String, defaultValue: './public', typeLabel: '[underline]{String}', description: 'Static (public) folder' }
     ];
     CommandLineInterface.sections = [{
-            header: 'geojson-tile-server',
-            content: 'A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.'
+            header: npmPackage.name + ", version " + npmPackage.version + " (created by " + npmPackage.author + ", " + npmPackage.license + " license)",
+            content: npmPackage.description
         }, {
             header: 'Options',
             optionList: CommandLineInterface.optionDefinitions
