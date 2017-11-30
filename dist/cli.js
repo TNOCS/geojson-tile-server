@@ -13,8 +13,8 @@ var CommandLineInterface = /** @class */ (function () {
         { name: 'static', alias: 's', type: String, defaultValue: './public', typeLabel: '[underline]{String}', description: 'Static (public) folder' }
     ];
     CommandLineInterface.sections = [{
-            header: npmPackage.name + ", version " + npmPackage.version + " (created by " + npmPackage.author + ", " + npmPackage.license + " license)",
-            content: npmPackage.description
+            header: npmPackage.name + ", version " + npmPackage.version,
+            content: "Created by " + npmPackage.author + ", under the " + npmPackage.license + " license.\n\n    " + npmPackage.description + "\n\n    The output can be found at \"http://HOSTNAME:PORT/LAYERNAME/z/x/y.EXT\", where EXT is geojson, vt or mvt."
         }, {
             header: 'Options',
             optionList: CommandLineInterface.optionDefinitions

@@ -42,6 +42,8 @@ var cors = require("cors");
 var vtpbf = require("vt-pbf");
 var utils_1 = require("./utils");
 var vt2geojson_1 = require("./vt2geojson");
+/** GeojsonVT extent option */
+var extent = 4096;
 var startService = function (filenames, options) { return __awaiter(_this, void 0, void 0, function () {
     var _this = this;
     var tileIndexes, countFiles, httpPort, app, send404;
@@ -58,7 +60,7 @@ var startService = function (filenames, options) { return __awaiter(_this, void 
                     case 0:
                         layerName = path.basename(f).replace(path.extname(f), '');
                         console.log("Processing layer " + layerName + "...");
-                        return [4 /*yield*/, utils_1.createTileIndex(f)];
+                        return [4 /*yield*/, utils_1.createTileIndex(f, { extent: extent })];
                     case 1:
                         tileIndex = _a.sent();
                         tileIndexes[layerName] = tileIndex;
@@ -92,7 +94,7 @@ var startService = function (filenames, options) { return __awaiter(_this, void 
                 return res.json({});
             }
             var vectorTiles = tile.features;
-            res.json(vt2geojson_1.toFeatureCollection(vectorTiles, x, y, z));
+            res.json(vt2geojson_1.toFeatureCollection(vectorTiles, x, y, z, extent));
         });
         app.get('/:layer/:z/:x/:y.vt', function (req, res) {
             var layer = req.params['layer'];

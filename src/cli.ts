@@ -1,6 +1,7 @@
 import * as commandLineArgs from 'command-line-args';
 import { OptionDefinition } from 'command-line-args';
 import { createService } from './server';
+import * as npmPackage from '../package.json';
 
 /**
  * Adds missing properties from typings.
@@ -27,8 +28,12 @@ export class CommandLineInterface {
   ];
 
   static sections = [{
-    header: 'geojson-tile-server',
-    content: 'A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.'
+    header: `${npmPackage.name}, version ${npmPackage.version}`,
+    content: `Created by ${npmPackage.author}, under the ${npmPackage.license} license.
+
+    ${npmPackage.description}
+
+    The output can be found at "http://HOSTNAME:PORT/LAYERNAME/z/x/y.EXT", where EXT is geojson, vt or mvt.`
   }, {
     header: 'Options',
     optionList: CommandLineInterface.optionDefinitions

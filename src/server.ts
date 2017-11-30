@@ -8,6 +8,9 @@ import { createTileIndex, findGeojsonFilesInFolder } from './utils';
 import { ICommandOptions } from './cli';
 import { IVectorTile, toFeatureCollection } from './vt2geojson';
 
+/** GeojsonVT extent option */
+const extent = 4096;
+
 const startService = async (filenames: string | string[], options: ICommandOptions) => {
   if (typeof filenames === 'string') { filenames = [filenames]; }
 
@@ -16,7 +19,7 @@ const startService = async (filenames: string | string[], options: ICommandOptio
   filenames.forEach(async f => {
     const layerName = path.basename(f).replace(path.extname(f), '');
     console.log(`Processing layer ${layerName}...`);
-    const tileIndex = await createTileIndex(f);
+    const tileIndex = await createTileIndex(f, { extent });
     tileIndexes[layerName] = tileIndex;
     countFiles--;
     if (countFiles <= 0) { console.log('Finished loading the layers.'); }
@@ -43,7 +46,7 @@ const startService = async (filenames: string | string[], options: ICommandOptio
     const tile = tileIndexes[layer].getTile(z, x, y);
     if (!tile || !tile.features) { return res.json({}); }
     const vectorTiles = tile.features as IVectorTile[];
-    res.json(toFeatureCollection(vectorTiles, x, y, z));
+    res.json(toFeatureCollection(vectorTiles, x, y, z, extent));
   });
 
   app.get('/:layer/:z/:x/:y.vt', (req, res) => {
