@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var extent = 4096;
 var GeometryType;
 (function (GeometryType) {
     GeometryType[GeometryType["Unknown"] = 0] = "Unknown";
@@ -9,52 +8,57 @@ var GeometryType;
     GeometryType[GeometryType["Polygon"] = 3] = "Polygon";
 })(GeometryType || (GeometryType = {}));
 ;
-exports.toFeatureCollection = function (features, x, y, z) {
+exports.toFeatureCollection = function (features, x, y, z, extent) {
+    if (extent === void 0) { extent = 4096; }
     return {
         type: 'FeatureCollection',
-        features: features.map(function (f) { return toGeoJSON(f, x, y, z); })
+        features: features.map(function (f) { return toGeoJSON(f, x, y, z, extent); })
     };
 };
-var toGeoJSON = function (feature, x, y, z) {
+var toGeoJSON = function (feature, x, y, z, extent) {
     var size = extent * Math.pow(2, z);
     var x0 = extent * x;
     var y0 = extent * y;
+    var projectedCoordinates = [];
     var coords = feature.geometry;
     var type = GeometryType[feature.type];
     // let type = feature.type;
     // let i, j;
     var project = function (line) {
+        var projected = [];
         for (var j = 0; j < line.length; j++) {
             var p = line[j];
             var y2 = 180 - (p[1] + y0) * 360 / size;
-            line[j] = [
+            projected[j] = [
                 (p[0] + x0) * 360 / size - 180,
                 360 / Math.PI * Math.atan(Math.exp(y2 * Math.PI / 180)) - 90
             ];
         }
+        return projected;
     };
     switch (feature.type) {
         case GeometryType.Point:
-            project(coords);
+            projectedCoordinates = project(coords);
             break;
         case GeometryType.LineString:
             type = 'LineString';
             for (var i = 0; i < coords.length; i++) {
-                project(coords[i]);
+                projectedCoordinates[i] = project(coords[i]);
             }
             break;
         case GeometryType.Polygon:
             type = 'Polygon';
             coords = classifyRings(coords);
             for (var i = 0; i < coords.length; i++) {
+                projectedCoordinates[i] = [];
                 for (var j = 0; j < coords[i].length; j++) {
-                    project(coords[i][j]);
+                    projectedCoordinates[i][j] = project(coords[i][j]);
                 }
             }
             break;
     }
-    if (coords.length === 1) {
-        coords = coords[0];
+    if (projectedCoordinates.length === 1) {
+        projectedCoordinates = projectedCoordinates[0];
     }
     else {
         type = 'Multi' + type;
@@ -63,7 +67,7 @@ var toGeoJSON = function (feature, x, y, z) {
         type: 'Feature',
         geometry: {
             type: type,
-            coordinates: coords
+            coordinates: projectedCoordinates
         },
         properties: feature.tags
     };
