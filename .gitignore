@@ -60,3 +60,4 @@ typings/
 # repo specific
 data
 dist
+public

@@ -40,7 +40,7 @@ const startService = async (filenames: string | string[], options: ICommandOptio
   const httpPort = options.port || process.env.PORT || 8123;
   const app = express();
   app.use(cors());
-  app.use(express.static(process.env.PUBLIC_FOLDER || './public'));
+  app.use(express.static(process.env.PUBLIC_FOLDER || options.static));
 
   const extensions = ['geojson', 'mvt (for MapBox GL, use source-layer: "all")', 'vt'];
 
