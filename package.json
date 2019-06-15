@@ -13,8 +13,9 @@
     "geojson-tile-server": "./bin/run.js"
   },
   "scripts": {
-    "build": "tsc -w",
-    "start": "node dist/server.js",
+    "build": "tsc",
+    "start": "tsc-watch --onSuccess \"node ./dist/cli.js\" --onFailure \"echo Compilation Failed\"",
+    "serve": "node dist/cli.js",
     "patch-release": "npm version patch && npm publish && git push --follow-tags",
     "minor-release": "npm version minor && npm publish && git push --follow-tags",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,19 +24,20 @@
   "license": "MIT",
   "description": "A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.",
   "dependencies": {
-    "command-line-args": "^4.0.7",
-    "command-line-usage": "^4.0.1",
-    "cors": "^2.8.4",
-    "express": "^4.16.2",
-    "geojson-vt": "^2.4.0",
-    "vt-pbf": "^3.1.0"
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^5.0.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "geojson-vt": "^3.2.1",
+    "vt-pbf": "^3.1.1"
   },
   "devDependencies": {
-    "@types/command-line-args": "^4.0.1",
-    "@types/cors": "^2.8.2",
-    "@types/express": "^4.0.39",
-    "@types/geojson": "^7946.0.0",
-    "@types/node": "^8.0.53",
-    "typescript": "^2.6.1"
+    "tsc-watch": "^2.2.1",
+    "@types/command-line-args": "^5.0.0",
+    "@types/cors": "^2.8.5",
+    "@types/express": "^4.17.0",
+    "@types/geojson": "^7946.0.7",
+    "@types/node": "^12.0.8",
+    "typescript": "^3.5.2"
   }
 }
