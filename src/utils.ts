@@ -27,10 +27,13 @@ export const loadGeoJSON = (file: string) => {
  * @returns
  */
 export const findGeojsonFilesInFolder = (folder: string) => {
-  return fs.readdirSync(folder).map(f => path.join(folder, f)).filter(f => {
-    const ext = path.extname(f);
-    return ext && (ext.toLowerCase() === '.geojson' || ext.toLowerCase() === '.json');
-  });
+  return fs
+    .readdirSync(folder)
+    .map(f => path.join(folder, f))
+    .filter(f => {
+      const ext = path.extname(f);
+      return ext && (ext.toLowerCase() === '.geojson' || ext.toLowerCase() === '.json');
+    });
 };
 
 export interface IGeojsonVTOptions {
@@ -44,6 +47,12 @@ export interface IGeojsonVTOptions {
   buffer?: number;
   /** logging level (0 to disable, 1 or 2) */
   debug?: 0 | 1 | 2;
+  /** whether to enable line metrics tracking for LineString/MultiLineString features */
+  lineMetrics?: false;
+  /** name of a feature property to promote to feature.id. Cannot be used with `generateId` */
+  promoteId?: string;
+  /** whether to generate feature ids. Cannot be used with `promoteId` */
+  generateId?: boolean;
   /** max zoom in the initial tile index?: if indexMaxZoom === maxZoom, and indexMaxPoints === 0, pre-generate all tiles */
   indexMaxZoom?: number;
   /** max number of points per tile in the index */
@@ -60,22 +69,21 @@ export interface IGeojsonVTOptions {
  */
 export const createTileIndex = async (filename: string, options?: IGeojsonVTOptions) => {
   const geoJSON = await loadGeoJSON(filename);
-  return geojsonvt(geoJSON, Object.assign({
-    /** max zoom to preserve detail on; can't be higher than 24 */
-    maxZoom: 20,
-    /** simplification tolerance (higher means simpler) */
-    tolerance: 3,
-    /** tile extent (both width and height) - this needs to match the value that is used in vt2geojson.ts */
-    extent: 4096,
-    /** tile buffer on each side */
-    buffer: 64,
-    /** logging level (0 to disable, 1 or 2) */
-    debug: 0,
-    /** max zoom in the initial tile index: if indexMaxZoom === maxZoom, and indexMaxPoints === 0, pre-generate all tiles */
-    indexMaxZoom: 4,
-    /** max number of points per tile in the index */
-    indexMaxPoints: 100000,
-    /** whether to include solid tile children in the index */
-    solidChildren: false
-  }, options));
+  return geojsonvt(
+    geoJSON,
+    Object.assign(
+      {
+        maxZoom: 22,
+        tolerance: 3,
+        extent: 4096,
+        buffer: 64,
+        debug: 0,
+        generateId: true,
+        indexMaxZoom: 4,
+        indexMaxPoints: 100000,
+        solidChildren: false,
+      } as IGeojsonVTOptions,
+      options
+    )
+  );
 };
