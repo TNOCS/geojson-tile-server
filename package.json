@@ -18,11 +18,11 @@
     "serve": "node dist/cli.js",
     "patch-release": "npm version patch && npm publish && git push --follow-tags",
     "minor-release": "npm version minor && npm publish && git push --follow-tags",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dry-run": "npm publish --dry-run"
   },
   "author": "Erik Vullings <erik.vullings@gmail.com> (http://www.tno.nl)",
   "license": "MIT",
-  "description": "A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps.",
+  "description": "A simple tile service, that takes one or more GeoJSON files and offers them as slippy maps in MVT, VT or GeoJSON format.",
   "dependencies": {
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
