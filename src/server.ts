@@ -2,9 +2,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as vtpbf from 'vt-pbf';
-import * as stream from 'stream';
 import { Request, Response } from 'express';
-import { GeometryObject } from 'geojson';
 import { createTileIndex, findGeojsonFilesInFolder } from './utils';
 import { ICommandOptions } from './cli';
 import { IVectorTile, toFeatureCollection } from './vt2geojson';
@@ -102,10 +100,7 @@ const startService = async (filenames: string | string[], options: ICommandOptio
       return;
     }
     /** Notice that I set the source-layer (for Mapbox GL) to all */
-    const buff = vtpbf.fromGeojsonVt({ all: tile });
-    const buffStream = new stream.PassThrough();
-    buffStream.end(buff);
-    buffStream.pipe(res);
+    res.send(Buffer.from(vtpbf.fromGeojsonVt({ all: tile })));
   });
 
   app.listen(httpPort, () => console.info(`Tile service is listening on port ${httpPort}`));
