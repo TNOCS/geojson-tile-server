@@ -44,3 +44,7 @@ npm start
 Or if you've installed it globally, run `geojson-tile-server`, which by default serves the './data' folder with the GeoJSON files, and the `./public` folder with static files.
 
 Optionally, you can specify the PORT (default `8123`), DATA (default `./data`), and PUBLIC_FOLDER (default `./public`) folder in your environment, in which case those values will be used instead.
+
+## Note
+
+For another example of a Mapbox-based service, see [here](http://bl.ocks.org/jgravois/51e2b30e3d6cf6c00f06b263a29108a2).
