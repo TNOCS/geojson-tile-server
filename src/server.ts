@@ -27,6 +27,7 @@ const startService = async (filenames: string | string[], options: ICommandOptio
       maxZoom: options.maxZoom,
       generateId: options.generatedId,
       promoteId: options.promoteId,
+      buffer: options.buffer,
     });
     tileIndexes[layerName] = tileIndex;
     countFiles--;
