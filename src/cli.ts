@@ -19,6 +19,7 @@ export interface ICommandOptions {
   promoteId: string;
   generatedId: boolean;
   help: boolean;
+  buffer: number;
 }
 
 export class CommandLineInterface {
@@ -76,6 +77,14 @@ export class CommandLineInterface {
       defaultValue: './public',
       typeLabel: '[underline]{String}',
       description: 'Static (public) folder'
+    },
+    {
+      name: 'buffer',
+      alias: 'b',
+      type: Number,
+      defaultValue: 64,
+      typeLabel: '[underline]{Number}',
+      description: 'Buffer value'
     }
   ];
 
