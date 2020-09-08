@@ -1,6 +1,6 @@
 {
   "name": "geojson-tile-server",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "dist/cli.js",
   "typings": "dist/cli.d.ts",
   "keywords": [
