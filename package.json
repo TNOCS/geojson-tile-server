@@ -14,10 +14,11 @@
   },
   "scripts": {
     "build": "tsc",
+    "clean": "rimraf dist",
     "start": "tsc-watch --onSuccess \"node ./dist/cli.js\" --onFailure \"echo Compilation Failed\"",
     "serve": "node dist/cli.js",
-    "patch-release": "npm version patch && npm publish && git push --follow-tags",
-    "minor-release": "npm version minor && npm publish && git push --follow-tags",
+    "patch-release": "npm run clean && npm run build && npm version patch && npm publish && git push --follow-tags",
+    "minor-release": "npm run clean && npm run build && npm version minor && npm publish && git push --follow-tags",
     "dry-run": "npm publish --dry-run"
   },
   "author": "Erik Vullings <erik.vullings@gmail.com> (http://www.tno.nl)",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "tsc-watch": "^4.2.9",
+    "rimraf": "3.0.2",
     "@types/command-line-args": "^5.0.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.8",
